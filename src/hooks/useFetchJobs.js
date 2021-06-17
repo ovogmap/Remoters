@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default function useFetchJobs() {
-  const [jobs, setJobs] = useState([])
+  const [jobData, setJobData] = useState([])
   const [err, setErr] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -18,7 +18,7 @@ export default function useFetchJobs() {
           type: key,
         }))
         console.log(newData)
-        setJobs(newData)
+        setJobData(newData)
         setLoading(false)
       })
       .catch((e) => {
@@ -28,14 +28,14 @@ export default function useFetchJobs() {
   }
 
   const handleAvtive = (index) => {
-    let newArr = [...jobs]
+    let newArr = [...jobData]
     newArr[index].active = !newArr[index].active
-    setJobs(newArr)
+    setJobData(newArr)
   }
 
   useEffect(() => {
     fetchData()
   }, [])
 
-  return { jobs, handleAvtive, loading, err }
+  return { jobData, handleAvtive, loading, err }
 }

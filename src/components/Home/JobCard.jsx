@@ -6,18 +6,10 @@ import colors from '../../style/colors'
 
 export default function JobCard({ logos, company, handleSupport }) {
   const [isOpen, setIsOpen] = useState(true)
-  const [isShow, setIsShow] = useState(false)
-
-  const handleIsShow = () => {
-    setIsShow((v) => !v)
-  }
 
   return (
-    <Container onMouseOut={() => setIsShow(false)}>
-      <Card
-        onMouseOver={() => setIsShow(true)}
-        onClick={() => setIsOpen((v) => !v)}
-      >
+    <Container>
+      <Card onClick={() => setIsOpen((v) => !v)}>
         <img src={logos[company.logo]} alt="" />
         <JobInfo>
           <p>{company.name}</p>
@@ -29,19 +21,18 @@ export default function JobCard({ logos, company, handleSupport }) {
           </JobTagContainer>
         </JobInfo>
         <Time>3m</Time>
-        {isShow && (
-          <Button
-            width="173"
-            height="63"
-            innerText="지원하기"
-            onClick={handleSupport}
-            style={{ marginLeft: '113px' }}
-          />
-        )}
+        <Button
+          className="event-button"
+          width="173"
+          height="63"
+          innerText="지원하기"
+          onClick={handleSupport}
+          style={{ flexSelf: 'flex-end' }}
+        />
       </Card>
       <JobContent isOpen={isOpen}>
         <JobContentText isOpen={isOpen}>
-          {company.contents.split('\n').map((content) => {
+          {company?.contents?.split('\n')?.map((content) => {
             if (content === '') return undefined
             return (
               <React.Fragment key={content}>
@@ -71,7 +62,14 @@ const Card = styled.div`
   margin-bottom: 36px;
   position: relative;
 
+  .event-button {
+    display: none;
+  }
+
   :hover {
+    .event-button {
+      display: block;
+    }
     background: #f3f3f3;
   }
 
@@ -148,4 +146,5 @@ const JobTag = styled.span`
 const Time = styled.p`
   font-size: 28px;
   color: #232323;
+  margin-right: 108px;
 `
