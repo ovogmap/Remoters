@@ -2,13 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Button } from '..'
+import Input from './Input'
 
 import logo from '../../assets/images/remoters.png'
 import remoters from '../../assets/images/remoters@3x.png'
 import main from '../../assets/images/main.png'
-import search from '../../assets/images/search.png'
 
-export default function Intro({ handleCreateCompany, handleSearchSubmit }) {
+export default function Intro({
+  handleCreateCompany,
+  handleSearchSubmit,
+  input,
+  onChange,
+}) {
   return (
     <Container>
       <Inner>
@@ -24,13 +29,14 @@ export default function Intro({ handleCreateCompany, handleSearchSubmit }) {
         <Section>
           <SectionLeft>
             <div>
-              <img src={remoters} alt="" />
+              <img src={remoters} alt="큰사이즈 로고" />
               <p>[명사] 시간과 공간의 제약을 받지않고 일하는 사람</p>
             </div>
-            <Input onSubmit={handleSearchSubmit}>
-              <input type="text" />
-              <button type="submit" />
-            </Input>
+            <Input
+              handleSearchSubmit={handleSearchSubmit}
+              input={input}
+              onChange={onChange}
+            />
           </SectionLeft>
           <SectionRight>
             <img src={main} alt="" />
@@ -87,44 +93,6 @@ const SectionLeft = styled.div`
   p {
     font-size: 30px;
     font-weight: 500;
-  }
-`
-
-const Input = styled.form`
-  width: 454px;
-  height: 76px;
-  background: #fff;
-  border-radius: 38px;
-  box-shadow: 0 6px 39px 0 rgba(165, 165, 165, 0.31);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 23px 32px;
-
-  input {
-    border: none;
-    background: initial;
-    height: 100%;
-    flex: 1;
-    font-size: 24px;
-    font-weight: 600;
-    outline: none;
-  }
-
-  button {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background-image: url(${search});
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
   }
 `
 

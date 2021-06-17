@@ -10,6 +10,7 @@ import github from '../../assets/images/github.png'
 import microsoft from '../../assets/images/microsoft.png'
 import kakao from '../../assets/images/kakao.png'
 import zigzag from '../../assets/images/zigzag.png'
+import useInput from '../../hooks/useInput'
 
 const logos = {
   company_logo1: github,
@@ -25,6 +26,7 @@ const title = {
 
 export default function Home() {
   const { jobData, handleAvtive, loading, err } = useFetchJobs()
+  const { input, onChange, resetInput } = useInput()
   const history = useHistory()
 
   console.log(jobData)
@@ -36,6 +38,7 @@ export default function Home() {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     window.alert('검색버튼 눌림')
+    resetInput()
   }
 
   const handleSupport = (e) => {
@@ -54,6 +57,8 @@ export default function Home() {
       <Intro
         handleCreateCompany={handleCreateCompany}
         handleSearchSubmit={handleSearchSubmit}
+        input={input}
+        onChange={onChange}
       />
       <Content
         jobData={jobData}
