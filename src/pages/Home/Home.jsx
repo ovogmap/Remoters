@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
+
+import { Button } from '../../components'
 
 import useFetchJobs from '../../hooks/useFetchJobs'
 
@@ -7,7 +10,11 @@ import logo from '../../assets/images/remoters.png'
 
 export default function Home() {
   const { jobs, loading, err } = useFetchJobs()
-  // fetchData()
+  const history = useHistory()
+
+  const handleCreateCompany = () => {
+    history.push('/company')
+  }
   if (loading) return <div>...loading</div>
   if (err) return <div>...err</div>
   return (
@@ -16,6 +23,12 @@ export default function Home() {
         <Inner>
           <Header>
             <img src={logo} alt="" />
+            <Button
+              width="241"
+              height="63"
+              innerText="회사 등록하기"
+              onClick={handleCreateCompany}
+            />
           </Header>
         </Inner>
       </Intro>

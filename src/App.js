@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import { Home, SearchResult, ErrorPage } from './pages'
+import { Home, Company, ErrorPage } from './pages'
 
 export default function App() {
   return (
@@ -9,8 +9,8 @@ export default function App() {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/SearchResult">
-        <SearchResult />
+      <Route path="/company">
+        <Company />
       </Route>
       <Route path="*">
         <ErrorPage />
