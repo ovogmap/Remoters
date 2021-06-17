@@ -3,9 +3,9 @@ import styled from 'styled-components'
 
 import colors from '../../style/colors'
 
-export default function Button({ innerText, width, height, onClick }) {
+export default function Button({ innerText, width, height, onClick, style }) {
   return (
-    <CustomButton width={width} height={height} onClick={onClick}>
+    <CustomButton style={style} width={width} height={height} onClick={onClick}>
       {innerText}
     </CustomButton>
   )

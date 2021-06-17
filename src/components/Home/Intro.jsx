@@ -44,13 +44,11 @@ export default function Intro({ handleCreateCompany, handleSearchSubmit }) {
 const Container = styled.div`
   width: 100%;
   height: 786px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: rgba(98, 115, 232, 0.1);
 `
 
 const Inner = styled.div`
+  margin: 0 auto;
   width: 100%;
   height: 100%;
   max-width: 1200px;

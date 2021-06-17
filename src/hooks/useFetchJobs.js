@@ -12,7 +12,13 @@ export default function useFetchJobs() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setJobs(data)
+        const newData = Object.keys(data).map((key) => ({
+          data: data[key],
+          active: false,
+          type: key,
+        }))
+        console.log(newData)
+        setJobs(newData)
         setLoading(false)
       })
       .catch((e) => {
@@ -21,9 +27,15 @@ export default function useFetchJobs() {
       })
   }
 
+  const handleAvtive = (index) => {
+    let newArr = [...jobs]
+    newArr[index].active = !newArr[index].active
+    setJobs(newArr)
+  }
+
   useEffect(() => {
     fetchData()
   }, [])
 
-  return { jobs, loading, err }
+  return { jobs, handleAvtive, loading, err }
 }
