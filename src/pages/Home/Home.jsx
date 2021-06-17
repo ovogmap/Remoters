@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
-import { Intro, Content } from '../../components/Home'
+import { Intro, Content, ScrollTop } from '../../components/Home'
 
 import useFetchJobs from '../../hooks/useFetchJobs'
 
@@ -43,6 +43,10 @@ export default function Home() {
     window.alert('지원하기 눌림')
   }
 
+  const handleGoToScrollTop = () => {
+    window.scrollTo(0, 0)
+  }
+
   if (loading) return <div>...loading</div>
   if (err) return <div>...err</div>
   return (
@@ -58,6 +62,7 @@ export default function Home() {
         logos={logos}
         handleSupport={handleSupport}
       />
+      <ScrollTop handleGoToScrollTop={handleGoToScrollTop} />
     </Container>
   )
 }
