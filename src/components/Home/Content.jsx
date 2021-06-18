@@ -7,7 +7,7 @@ import Jobs from './Jobs'
 
 export default function Content({
   jobData,
-  handleAvtive,
+  handleActive,
   title,
   logos,
   handleSupport,
@@ -19,7 +19,7 @@ export default function Content({
           <Article key={job.type}>
             <Header>
               <h2>{title[job.type]}</h2>
-              <CheckButton onClick={() => handleAvtive(i)}>
+              <CheckButton onClick={() => handleActive(i)}>
                 {!job.active && <img src={nocheck} alt="" />}
                 {job.active && <img src={oncheck} alt="" />}
                 <p>Non-IT 잡만 보기</p>

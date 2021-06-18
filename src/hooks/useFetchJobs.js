@@ -27,7 +27,7 @@ export default function useFetchJobs() {
       })
   }
 
-  const handleAvtive = (index) => {
+  const handleActive = (index) => {
     let newArr = [...jobData]
     newArr[index].active = !newArr[index].active
     setJobData(newArr)
@@ -37,5 +37,5 @@ export default function useFetchJobs() {
     fetchData()
   }, [])
 
-  return { jobData, handleAvtive, loading, err }
+  return { jobData, handleActive, loading, err }
 }

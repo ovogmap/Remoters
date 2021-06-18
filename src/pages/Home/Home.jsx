@@ -25,7 +25,8 @@ const title = {
 }
 
 export default function Home() {
-  const { jobData, handleAvtive, loading, err } = useFetchJobs()
+  // job데이터 불러오는 커스텀 훅
+  const { jobData, handleActive, loading, err } = useFetchJobs()
   const { input, onChange, resetInput } = useInput()
   const history = useHistory()
 
@@ -62,7 +63,7 @@ export default function Home() {
       />
       <Content
         jobData={jobData}
-        handleAvtive={handleAvtive}
+        handleActive={handleActive}
         title={title}
         logos={logos}
         handleSupport={handleSupport}

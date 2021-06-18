@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Button } from '..'
 
@@ -6,10 +6,28 @@ import colors from '../../style/colors'
 
 export default function JobCard({ logos, company, handleSupport }) {
   const [isOpen, setIsOpen] = useState(true)
+  const [cardHeight, setCardHeight] = useState(null)
+  const [innerHeight, setInnerHeight] = useState(null)
 
+  const cardRef = useRef(null)
+  const innerRef = useRef(null)
+
+  useEffect(() => {
+    if (cardRef.current) {
+      const cardHeight = cardRef.current.getBoundingClientRect().height
+      setCardHeight(cardHeight)
+    }
+  }, [cardRef])
+
+  useEffect(() => {
+    if (innerRef.current) {
+      const InnerHeight = innerRef?.current?.getBoundingClientRect().height
+      setInnerHeight(InnerHeight)
+    }
+  }, [innerRef])
   return (
     <Container>
-      <Card onClick={() => setIsOpen((v) => !v)}>
+      <Card ref={cardRef} onClick={() => setIsOpen((v) => !v)}>
         <img src={logos[company.logo]} alt="" />
         <JobInfo>
           <p>{company.name}</p>
@@ -30,8 +48,8 @@ export default function JobCard({ logos, company, handleSupport }) {
           style={{ flexSelf: 'flex-end' }}
         />
       </Card>
-      <JobContent isOpen={isOpen}>
-        <JobContentText isOpen={isOpen}>
+      <JobDescriptionContainer isOpen={isOpen} currentHeight={innerHeight}>
+        <JobDescriptionInner ref={innerRef} currentHeight={cardHeight}>
           {company?.contents?.split('\n')?.map((content) => {
             if (content === '') return undefined
             return (
@@ -41,13 +59,14 @@ export default function JobCard({ logos, company, handleSupport }) {
               </React.Fragment>
             )
           })}
-        </JobContentText>
-      </JobContent>
+        </JobDescriptionInner>
+      </JobDescriptionContainer>
     </Container>
   )
 }
 
 const Container = styled.div`
+  position: relative;
   overflow: hidden;
 `
 
@@ -78,21 +97,26 @@ const Card = styled.div`
   }
 `
 
-const JobContent = styled.div`
+const JobDescriptionContainer = styled.div`
   width: 100%;
   background: #fff;
   border-radius: 0 0 10px 10px;
   margin-top: -37px;
   margin-bottom: 37px;
-  height: ${(props) => (props.isOpen ? '0' : '320px')};
+  height: ${(props) => (props.isOpen ? '0' : props.currentHeight + 'px')};
+
   transition: all ease-in-out 0.2s;
   overflow: hidden;
+
   display: flex;
   align-items: center;
 `
 
-const JobContentText = styled.div`
-  padding-left: 52px;
+const JobDescriptionInner = styled.div`
+  position: absolute;
+  top: ${(props) => props.currentHeight + 'px'};
+  left: 0;
+  padding: 61px 52px;
 
   p {
     font-size: 21px;
