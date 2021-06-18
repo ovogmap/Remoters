@@ -13,8 +13,6 @@ export default function JobCard({ logos, company, handleSupport }) {
   const cardRef = useRef(null)
   const innerRef = useRef(null)
 
-  console.log(company)
-
   // 작성시간 구하는 함수
   function getTime(time) {
     let result = 0
@@ -67,14 +65,13 @@ export default function JobCard({ logos, company, handleSupport }) {
             ))}
           </JobTagContainer>
         </JobInfo>
-        <Time>{createAt}</Time>
+        <CreateAt>{createAt}</CreateAt>
         <Button
           className="event-button"
           width="173"
           height="63"
           innerText="지원하기"
           onClick={handleSupport}
-          style={{ flexSelf: 'flex-end' }}
         />
       </Card>
       <JobDescriptionContainer isOpen={isOpen} currentHeight={innerHeight}>
@@ -189,7 +186,7 @@ const JobTag = styled.span`
   color: ${colors['purple']};
 `
 
-const Time = styled.p`
+const CreateAt = styled.p`
   font-size: 19px;
   color: #232323;
   margin-right: 108px;

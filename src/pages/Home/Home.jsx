@@ -11,6 +11,7 @@ import useInput from '../../hooks/useInput'
 export default function Home() {
   // job데이터 불러오는 커스텀 훅
   const { jobData, handleActive, loading, err } = useFetchJobs()
+
   // 검색창에 사용하는 input state
   const { input, onChange, resetInput } = useInput()
   const history = useHistory()
