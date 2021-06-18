@@ -3,30 +3,15 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
 import { Intro, Content, ScrollTop } from '../../components/Home'
+import { logos, title } from '../../constants'
 
 import useFetchJobs from '../../hooks/useFetchJobs'
-
-import github from '../../assets/images/github.png'
-import microsoft from '../../assets/images/microsoft.png'
-import kakao from '../../assets/images/kakao.png'
-import zigzag from '../../assets/images/zigzag.png'
 import useInput from '../../hooks/useInput'
-
-const logos = {
-  company_logo1: github,
-  company_logo2: kakao,
-  company_logo3: microsoft,
-  company_logo4: zigzag,
-}
-
-const title = {
-  todayJobs: '오늘 올라온 잡',
-  weeklyJobs: '이번주에 올라온 잡',
-}
 
 export default function Home() {
   // job데이터 불러오는 커스텀 훅
   const { jobData, handleActive, loading, err } = useFetchJobs()
+  // 검색창에 사용하는 input state
   const { input, onChange, resetInput } = useInput()
   const history = useHistory()
 
