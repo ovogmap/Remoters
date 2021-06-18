@@ -16,7 +16,7 @@ export default function Content({
     <Section>
       <Inner>
         {jobData.map((job, i) => (
-          <Article key={job.type}>
+          <article key={job.type}>
             <Header>
               <h2>{title[job.type]}</h2>
               <CheckButton onClick={() => handleActive(i)}>
@@ -32,7 +32,7 @@ export default function Content({
                 handleSupport={handleSupport}
               />
             </JobContainer>
-          </Article>
+          </article>
         ))}
       </Inner>
     </Section>
@@ -59,9 +59,11 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 52px;
+
   h2 {
     font-size: 30px;
     font-weight: bold;
+    color: #000000;
   }
 `
 
@@ -72,6 +74,8 @@ const CheckButton = styled.button`
   p {
     padding-left: 10px;
     color: #3f3f3f;
+    font-size: 19px;
+    font-weight: 500;
   }
 `
 
@@ -79,5 +83,3 @@ const JobContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
-
-const Article = styled.article``

@@ -17,7 +17,6 @@ export default function useFetchJobs() {
           active: false,
           type: key,
         }))
-        console.log(newData)
         setJobData(newData)
         setLoading(false)
       })

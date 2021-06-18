@@ -8,9 +8,38 @@ export default function JobCard({ logos, company, handleSupport }) {
   const [isOpen, setIsOpen] = useState(true)
   const [cardHeight, setCardHeight] = useState(null)
   const [innerHeight, setInnerHeight] = useState(null)
+  const [createAt, setCreateAt] = useState('')
 
   const cardRef = useRef(null)
   const innerRef = useRef(null)
+
+  console.log(company)
+
+  // 작성시간 구하는 함수
+  function getTime(time) {
+    let result = 0
+    const seconde = time / 1000
+    const minute = seconde / 60
+    if (minute <= 59) {
+      result = `${Math.floor(minute)}m`
+    } else {
+      const hour = minute / 60
+      if (hour <= 59) {
+        result = `${Math.floor(hour)}h`
+      } else {
+        const day = hour / 24
+        result = `${Math.floor(day)}d`
+      }
+    }
+    setCreateAt(result)
+  }
+
+  useEffect(() => {
+    const createAt = new Date(company.date).getTime()
+    const currentTime = new Date().getTime()
+    const result = currentTime - createAt
+    getTime(result)
+  }, [company.date])
 
   useEffect(() => {
     if (cardRef.current) {
@@ -28,7 +57,7 @@ export default function JobCard({ logos, company, handleSupport }) {
   return (
     <Container>
       <Card ref={cardRef} onClick={() => setIsOpen((v) => !v)}>
-        <img src={logos[company.logo]} alt="" />
+        <img src={logos[company.logo]} alt="기업로고" />
         <JobInfo>
           <p>{company.name}</p>
           <h3>{company.position}</h3>
@@ -38,7 +67,7 @@ export default function JobCard({ logos, company, handleSupport }) {
             ))}
           </JobTagContainer>
         </JobInfo>
-        <Time>3m</Time>
+        <Time>{createAt}</Time>
         <Button
           className="event-button"
           width="173"
@@ -50,15 +79,7 @@ export default function JobCard({ logos, company, handleSupport }) {
       </Card>
       <JobDescriptionContainer isOpen={isOpen} currentHeight={innerHeight}>
         <JobDescriptionInner ref={innerRef} currentHeight={cardHeight}>
-          {company?.contents?.split('\n')?.map((content) => {
-            if (content === '') return undefined
-            return (
-              <React.Fragment key={content}>
-                <p>{content}</p>
-                <br />
-              </React.Fragment>
-            )
-          })}
+          <ContText>{company.contents}</ContText>
         </JobDescriptionInner>
       </JobDescriptionContainer>
     </Container>
@@ -93,21 +114,21 @@ const Card = styled.div`
   }
 
   img {
+    width: 111px;
+    height: 111px;
     margin-right: 43px;
   }
 `
 
 const JobDescriptionContainer = styled.div`
   width: 100%;
+  height: ${(props) => (props.isOpen ? '0' : props.currentHeight + 'px')};
   background: #fff;
   border-radius: 0 0 10px 10px;
-  margin-top: -37px;
+  margin-top: -45px;
   margin-bottom: 37px;
-  height: ${(props) => (props.isOpen ? '0' : props.currentHeight + 'px')};
-
   transition: all ease-in-out 0.2s;
   overflow: hidden;
-
   display: flex;
   align-items: center;
 `
@@ -133,8 +154,9 @@ const JobInfo = styled.div`
 
   p {
     font-family: Montserrat;
-    color: #1b1b1b;
+    color: #181918;
     font-size: 24px;
+    font-weight: 500;
   }
 
   h3 {
@@ -168,7 +190,14 @@ const JobTag = styled.span`
 `
 
 const Time = styled.p`
-  font-size: 28px;
+  font-size: 19px;
   color: #232323;
   margin-right: 108px;
+`
+
+const ContText = styled.p`
+  font-size: 21px;
+  font-weight: 500;
+  color: #212121;
+  white-space: pre-wrap;
 `

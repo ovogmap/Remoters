@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
@@ -30,23 +30,25 @@ export default function Home() {
   const { input, onChange, resetInput } = useInput()
   const history = useHistory()
 
-  console.log(jobData)
-
+  // 회사 등록하기 이벤트
   const handleCreateCompany = () => {
     history.push('/company')
   }
 
+  // 검색하기 버튼 이벤트
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     window.alert('검색버튼 눌림')
     resetInput()
   }
 
+  // 지원하기 버튼 이벤트
   const handleSupport = (e) => {
     e.stopPropagation()
     window.alert('지원하기 눌림')
   }
 
+  // 스크롤 최상단으로 가는 이벤트
   const handleGoToScrollTop = () => {
     window.scrollTo(0, 0)
   }
