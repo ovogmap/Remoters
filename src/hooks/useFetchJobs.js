@@ -5,25 +5,24 @@ export default function useFetchJobs() {
   const [err, setErr] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  function fetchData() {
+  // async await으로 변경
+  async function fetchData() {
     setLoading(true)
-    fetch(
-      'https://9ka6d9cy9f.execute-api.ap-northeast-2.amazonaws.com/default/getYourcodeInterviewData'
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const newData = Object.keys(data).map((key) => ({
-          data: data[key],
-          active: false,
-          type: key,
-        }))
-        setJobData(newData)
-        setLoading(false)
-      })
-      .catch((e) => {
-        setLoading(false)
-        setErr(true)
-      })
+    try {
+      const res = await fetch(
+        'https://9ka6d9cy9f.execute-api.ap-northeast-2.amazonaws.com/default/getYourcodeInterviewData'
+      ).then((res) => res.json())
+
+      const newData = Object.keys(res).map((key) => ({
+        data: res[key],
+        active: false,
+        type: key,
+      }))
+      setJobData(newData)
+    } catch (e) {
+      setErr(true)
+    }
+    setLoading(false)
   }
 
   const handleActive = (index) => {
