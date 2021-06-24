@@ -6,6 +6,7 @@ export default function useFetchJobs() {
   const [loading, setLoading] = useState(false)
 
   // async await으로 변경
+  // 커스텀 훅으로 만드는 것보다 컴포넌트 내부에서 만드는게 더 좋은것 같다...
   async function fetchData() {
     setLoading(true)
     try {
